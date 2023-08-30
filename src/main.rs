@@ -1,39 +1,5 @@
-use std::{io, cmp::Ordering};
-use rand::Rng;
+use guessing_game::main_loop;
 
 fn main() {
-    println!("Guess the number!");
-
-    let secret_number = get_secret_num();
-    // println!("The secret number is: {secret_number}");
-
-    loop {
-        println!("Please input your guess.");
-
-        let mut guess = String::new();
-
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        println!("You guessed: {guess}");
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-    }
-}
-
-fn get_secret_num() -> u32 {
-    rand::thread_rng().gen_range(1..=100)
+    main_loop();
 }
